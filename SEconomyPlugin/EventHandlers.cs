@@ -48,7 +48,7 @@ namespace Wolfje.Plugins.SEconomy {
 
 			TShockAPI.Hooks.PlayerHooks.PlayerPostLogin += PlayerHooks_PlayerPostLogin;
 			Parent.RunningJournal.BankTransferCompleted += BankAccount_BankTransferCompleted;
-			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+			//TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
 			ServerApi.Hooks.GamePostInitialize.Register(this.Parent.PluginInstance, GameHooks_PostInitialize);
 			ServerApi.Hooks.ServerJoin.Register(this.Parent.PluginInstance, ServerHooks_Join);
@@ -283,7 +283,7 @@ namespace Wolfje.Plugins.SEconomy {
 		/// <summary>
 		/// Occurs when an exception happens on a task thread.
 		/// </summary>
-		protected void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+		/*protected void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
 		{
 			if (e.Observed == true) {
 				return;
@@ -291,7 +291,7 @@ namespace Wolfje.Plugins.SEconomy {
 
 			TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(27, "[SEconomy Async] Error occurred on a task thread: ") + e.Exception.Flatten().ToString());
 			e.SetObserved();
-		}
+		}*/
 
 		public void Dispose()
 		{
@@ -304,7 +304,7 @@ namespace Wolfje.Plugins.SEconomy {
 			if (disposing == true) {
 				TShockAPI.Hooks.PlayerHooks.PlayerPostLogin -= PlayerHooks_PlayerPostLogin;
 				Parent.RunningJournal.BankTransferCompleted -= BankAccount_BankTransferCompleted;
-				TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+				//TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
 				PayRunTimer.Elapsed -= PayRunTimer_Elapsed;
 				PayRunTimer.Dispose();
 
