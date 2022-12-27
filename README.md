@@ -1,5 +1,6 @@
 SEconomy
 ========
+# You will need to put the System.Windows.Forms.dll in the bin folder of TShock if you want to run SEconomy on TShock 5.0
 
 SEconomy - Server-sided currency, economy and ranking system for TShock servers
 
