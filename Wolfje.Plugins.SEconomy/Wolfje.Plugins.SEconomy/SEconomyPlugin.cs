@@ -63,22 +63,21 @@ namespace Wolfje.Plugins.SEconomy
         protected void PrintIntro()
 		{
             Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(" SEconomy已经停止维护了,你需要考虑换掉它!");
-            Console.WriteLine(" SEconomy已经停止维护了,你需要考虑换掉它!");
-            Console.WriteLine(" SEconomy已经停止维护了,你需要考虑换掉它!\n");
-            Console.Write(" SEconomy系统 ");
+            Console.Write(" SEconomy系统\n");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write(" Copyright (C) Wolfje(Cai升级), 2014-2023");
+            Console.WriteLine(" Copyright (C) Wolfje(Cai升级), 2014-2023");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("https://github.com/ACaiCat/SEconomy");
+            Console.Write("*开源仓库(Fork):https://github.com/ACaiCat/SEconomy");
             Console.WriteLine("\r\n");
             ConsoleColor backgroundColor = Console.BackgroundColor;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(" SEconomy是免费的插件.如果你是付费购买,那么你被骗了!");
+            Console.Write(" SEconomy是免费的插件.如果你是付费购买,那么你被骗了!");
             Console.BackgroundColor = backgroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n!!SEconomy已经停止维护了,你需要考虑换掉它!!");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("\r\n");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(" 请等待...");

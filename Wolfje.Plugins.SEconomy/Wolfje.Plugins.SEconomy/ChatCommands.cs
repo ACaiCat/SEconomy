@@ -119,7 +119,7 @@ namespace Wolfje.Plugins.SEconomy
 						TShock.Log.ConsoleInfo(SEconomyPlugin.Locale.StringOrDefault(47, "seconomy: 正在打开银行管理器窗口"));
 						Parent.RunningJournal.BackupsEnabled = false;
 						Parent.RunningJournal.BackupsEnabled = true;
-						TShock.Log.ConsoleInfo(SEconomyPlugin.Locale.StringOrDefault(49, "seconomy management: window closed"));
+						TShock.Log.ConsoleInfo(SEconomyPlugin.Locale.StringOrDefault(49, "seconomy management: 银行管理器窗口已经关闭"));
 					});
 					thread.SetApartmentState(ApartmentState.STA);
 					thread.Start();

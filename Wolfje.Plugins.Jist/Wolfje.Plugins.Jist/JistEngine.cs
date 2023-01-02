@@ -55,7 +55,7 @@ namespace Wolfje.Plugins.Jist
 			providedPackages = new List<string>();
 			plugin = parent;
 			scriptContainer = new ScriptContainer(this);
-			ServerApi.Hooks.GamePostInitialize.Register(plugin, Game_PostInitialize);
+			ServerApi.Hooks.GamePostInitialize.Register(plugin, Game_PostInitialize,int.MinValue);
 			PercentChanged += delegate(object sender, PercentChangedEventArgs args)
 			{
 				ConsoleEx.WriteBar(args);
@@ -85,6 +85,7 @@ namespace Wolfje.Plugins.Jist
 
 		public async Task LoadEngineAsync()
 		{
+			Thread.Sleep(2000);
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine(" * Jist正在加载...");
 			Console.ResetColor();
@@ -105,31 +106,31 @@ namespace Wolfje.Plugins.Jist
 			{
 				o.AllowClr(typeof(Main).Assembly, typeof(TShock).Assembly);
 			});
-			RaisePercentChangedEvent("Engine");
+			RaisePercentChangedEvent("Jist引擎");
 			await Task.Run(delegate
 			{
 				LoadLibraries();
 			});
-			RaisePercentChangedEvent("Libraries");
+			RaisePercentChangedEvent("库");
 			await Task.Run(delegate
 			{
 				CreateScriptFunctions();
 			});
-			RaisePercentChangedEvent("Functions");
+			RaisePercentChangedEvent("方法(函数)");
 			ExecuteHardCodedScripts();
 			await Task.Run(delegate
 			{
 				LoadScripts();
 			});
-			RaisePercentChangedEvent("Scripts");
+			RaisePercentChangedEvent("脚本");
 			await Task.Run(delegate
 			{
 				ExecuteScripts();
 			});
-			RaisePercentChangedEvent("Execute");
+			RaisePercentChangedEvent("执行");
 			Console.WriteLine();
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(" * 正在加载{0}个脚本", ScriptsCount());
+			Console.WriteLine(" * 已加载{0}个脚本", ScriptsCount());
 			Console.ResetColor();
 			Console.WriteLine();
 		}

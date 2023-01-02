@@ -352,11 +352,11 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 		{
 			JournalLoadingPercentChangedEventArgs journalLoadingPercentChangedEventArgs = new JournalLoadingPercentChangedEventArgs
 			{
-				Label = "Loading"
+				Label = "加载"
 			};
 			JournalLoadingPercentChangedEventArgs journalLoadingPercentChangedEventArgs2 = new JournalLoadingPercentChangedEventArgs
 			{
-				Label = "Verify"
+				Label = "验证"
 			};
 			ConsoleEx.WriteLineColour(ConsoleColor.Cyan, " 使用XML日志系统 - {0}", path);
 			try
@@ -542,7 +542,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 						int count = bankAccounts.Count;
 						Console.WriteLine();
 						Console.ForegroundColor = ConsoleColor.Cyan;
-						Console.WriteLine("\r\n 日志清理: {0}个帐户和{1}笔交易.", count, Transactions.Count());
+						Console.WriteLine("\r\n 日志加载: {0}个帐户和{1}笔交易.", count, Transactions.Count());
 						Console.ResetColor();
 					}
 					catch (Exception ex2)
