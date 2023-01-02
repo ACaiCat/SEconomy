@@ -64,10 +64,10 @@ namespace Wolfje.Plugins.SEconomy
 		{
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" SEconomy已经停止维护了,你需要考虑换掉它!");
+            Console.WriteLine(" SEconomy已经停止维护了,你需要考虑换掉它!");
+            Console.WriteLine(" SEconomy已经停止维护了,你需要考虑换掉它!\n");
             Console.Write(" SEconomy系统 ");
-            Console.Write(" SEconomy已经停止维护了,你需要考虑换掉它!");
-            Console.Write(" SEconomy已经停止维护了,你需要考虑换掉它!");
-
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write(" Copyright (C) Wolfje(Cai升级), 2014-2023");
