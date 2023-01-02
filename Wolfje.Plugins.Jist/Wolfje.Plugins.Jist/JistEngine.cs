@@ -86,7 +86,7 @@ namespace Wolfje.Plugins.Jist
 		public async Task LoadEngineAsync()
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(" * Jist is loading");
+			Console.WriteLine(" * Jist正在加载...");
 			Console.ResetColor();
 			if (!Directory.Exists(scriptsDir))
 			{
@@ -96,7 +96,7 @@ namespace Wolfje.Plugins.Jist
 				}
 				catch
 				{
-					TShock.Log.ConsoleError("jist load: Could not create serverscripts directory");
+					TShock.Log.ConsoleError("jist加载: 无法创建serverscript目录");
 					return;
 				}
 			}
@@ -129,7 +129,7 @@ namespace Wolfje.Plugins.Jist
 			RaisePercentChangedEvent("Execute");
 			Console.WriteLine();
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(" * Loaded {0} scripts", ScriptsCount());
+			Console.WriteLine(" * 正在加载{0}个脚本", ScriptsCount());
 			Console.ResetColor();
 			Console.WriteLine();
 		}
@@ -200,7 +200,7 @@ namespace Wolfje.Plugins.Jist
 			}
 			catch (Exception ex)
 			{
-				ScriptLog.ErrorFormat("engine", "Cannot load {0}: {1}", ScriptPath, ex.Message);
+				ScriptLog.ErrorFormat("jist引擎", "无法加载脚本 {0}: {1}", ScriptPath, ex.Message);
 				return null;
 			}
 			scriptContainer.PreprocessScript(jistScript);
@@ -228,14 +228,14 @@ namespace Wolfje.Plugins.Jist
 			}
 			catch (JavaScriptException ex)
 			{
-				StringBuilder stringBuilder = new StringBuilder("JavaScript error: " + ex.Message + "\r\n");
+				StringBuilder stringBuilder = new StringBuilder("JavaScript错误: " + ex.Message + "\r\n");
 				stringBuilder.AppendLine(ex.StackTrace);
 				return stringBuilder.ToString();
 			}
 			catch (ParserException ex2)
 			{
-				StringBuilder stringBuilder2 = new StringBuilder("JavaScript parser error: " + ex2.Message + "\r\n");
-				stringBuilder2.AppendLine($" at line {ex2.LineNumber} column {ex2.Column}");
+				StringBuilder stringBuilder2 = new StringBuilder("JavaScript解析器错误: " + ex2.Message + "\r\n");
+				stringBuilder2.AppendLine($" 在行 {ex2.LineNumber} 字符 {ex2.Column}");
 				stringBuilder2.AppendLine(ex2.Source);
 				stringBuilder2.AppendLine(ex2.StackTrace);
 				return stringBuilder2.ToString();
@@ -246,7 +246,7 @@ namespace Wolfje.Plugins.Jist
 			}
 			if (string.IsNullOrEmpty(jsValue.ToString()))
 			{
-				TShock.Log.ConsoleError("[jist eval] result of \"{0}\" is null", snippet);
+				TShock.Log.ConsoleError("[JIST评估]\"{0}\"的结果为空", snippet);
 				return "undefined";
 			}
 			return jsValue.ToString();
@@ -267,7 +267,7 @@ namespace Wolfje.Plugins.Jist
 			}
 			catch (Exception ex)
 			{
-				ScriptLog.ErrorFormat(script.FilePathOrUri, "Execution error: " + ex.Message);
+				ScriptLog.ErrorFormat(script.FilePathOrUri, "执行错误: " + ex.Message);
 				return JsValue.Undefined;
 			}
 		}
@@ -283,7 +283,7 @@ namespace Wolfje.Plugins.Jist
 				}
 				catch (Exception ex)
 				{
-					ScriptLog.ErrorFormat(item.FilePathOrUri, "Execution error: " + ex.Message);
+					ScriptLog.ErrorFormat(item.FilePathOrUri, "执行错误: " + ex.Message);
 				}
 			}
 		}
@@ -334,7 +334,7 @@ namespace Wolfje.Plugins.Jist
 					}
 					catch (Exception ex)
 					{
-						ScriptLog.ErrorFormat("engine", "Error whilst creating javascript function for {0}: {1}", text, ex.ToString());
+						ScriptLog.ErrorFormat("jist引擎", "为{0}创建JavaScript函数时出错: {1}", text, ex.ToString());
 					}
 				}
 			}
@@ -361,16 +361,16 @@ namespace Wolfje.Plugins.Jist
 			}
 			catch (JavaScriptException ex)
 			{
-				StringBuilder stringBuilder = new StringBuilder("JavaScript error: " + ex.Message + "\r\n");
-				stringBuilder.AppendLine($" at line {ex.LineNumber} column {ex.Column}");
+				StringBuilder stringBuilder = new StringBuilder("JavaScript错误: " + ex.Message + "\r\n");
+				stringBuilder.AppendLine($" 在行 {ex.LineNumber} 字符 {ex.Column}");
 				stringBuilder.AppendLine(ex.Location.Source);
 				stringBuilder.AppendLine(ex.StackTrace);
 				TShock.Log.ConsoleError(stringBuilder.ToString());
 			}
 			catch (ParserException ex2)
 			{
-				StringBuilder stringBuilder2 = new StringBuilder("JavaScript parser error: " + ex2.Message + "\r\n");
-				stringBuilder2.AppendLine($" at line {ex2.LineNumber} column {ex2.Column}");
+				StringBuilder stringBuilder2 = new StringBuilder("JavaScript解析器错误: " + ex2.Message + "\r\n");
+				stringBuilder2.AppendLine($" 在行 {ex2.LineNumber} 字符 {ex2.Column}");
 				stringBuilder2.AppendLine(ex2.Source);
 				stringBuilder2.AppendLine(ex2.StackTrace);
 				TShock.Log.ConsoleError(stringBuilder2.ToString());

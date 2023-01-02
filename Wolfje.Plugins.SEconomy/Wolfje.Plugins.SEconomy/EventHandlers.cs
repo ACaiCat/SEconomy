@@ -30,7 +30,7 @@ namespace Wolfje.Plugins.SEconomy
 			}
 			PlayerHooks.PlayerPostLogin += PlayerHooks_PlayerPostLogin;
 			Parent.RunningJournal.BankTransferCompleted += BankAccount_BankTransferCompleted;
-			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+			//TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 			ServerApi.Hooks.GamePostInitialize.Register(this.Parent.PluginInstance, GameHooks_PostInitialize);
 			ServerApi.Hooks.ServerJoin.Register(this.Parent.PluginInstance, ServerHooks_Join);
 			ServerApi.Hooks.ServerLeave.Register(this.Parent.PluginInstance, ServerHooks_Leave);
@@ -167,7 +167,7 @@ namespace Wolfje.Plugins.SEconomy
 			{
 				PlayerHooks.PlayerPostLogin -= PlayerHooks_PlayerPostLogin;
 				Parent.RunningJournal.BankTransferCompleted -= BankAccount_BankTransferCompleted;
-				TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+				//TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
 				PayRunTimer.Elapsed -= PayRunTimer_Elapsed;
 				PayRunTimer.Dispose();
 				ServerApi.Hooks.GamePostInitialize.Deregister(Parent.PluginInstance, GameHooks_PostInitialize);

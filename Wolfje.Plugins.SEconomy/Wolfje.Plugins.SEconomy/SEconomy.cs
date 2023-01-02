@@ -37,19 +37,8 @@ namespace Wolfje.Plugins.SEconomy
 			this.PluginInstance = PluginInstance;
 		}
 
-		public bool IsNet45OrNewer()
-		{
-			return Type.GetType("System.Reflection.ReflectionContext", throwOnError: false) != null;
-		}
-
 		public int LoadSEconomy()
 		{
-			if (!IsNet45OrNewer())
-			{
-				TShock.Log.ConsoleError("SEconomy requires Microsoft .NET framework 4.5 or later.");
-				TShock.Log.ConsoleError("SEconomy will not run.");
-				return -1;
-			}
 			try
 			{
 				Configuration = Config.FromFile(Config.BaseDirectory + Path.DirectorySeparatorChar + "SEconomy.config.json");
@@ -106,7 +95,7 @@ namespace Wolfje.Plugins.SEconomy
 		{
 
 			IBankAccount newAccount = SEconomyPlugin.Instance.RunningJournal.AddBankAccount(player.Name, Main.worldID, BankAccountFlags.Enabled, "");
-			TShock.Log.ConsoleInfo("seconomy: bank account for " + player.Name + " created.");
+			TShock.Log.ConsoleInfo("seconomy: 银行已为\"" + player.Name + "\"创造账户.");
 			if (int.TryParse(SEconomyPlugin.Instance.Configuration.StartingMoney, out var Money) && (long)Money > 0)
 			{
 				await SEconomyPlugin.Instance.WorldAccount.TransferToAsync(newAccount, Money, BankAccountTransferOptions.AnnounceToReceiver, "starting out.", "starting out.");
@@ -120,11 +109,11 @@ namespace Wolfje.Plugins.SEconomy
 			IBankAccount bankAccount2 = bankAccount;
 			if (bankAccount2 == null)
 			{
-				TShock.Log.ConsoleError("seconomy bind:  The journal system did not return a world account.  This is an internal error.");
+				TShock.Log.ConsoleError("seconomy绑定:日志系统没有找到世界帐户.这是一个内部错误.");
 				return;
 			}
 			await WorldAccount.SyncBalanceAsync();
-			TShock.Log.ConsoleInfo(string.Format(SEconomyPlugin.Locale.StringOrDefault(1, "SEconomy: world account: paid {0} to players."), WorldAccount.Balance.ToLongString()));
+			TShock.Log.ConsoleInfo(string.Format(SEconomyPlugin.Locale.StringOrDefault(1, "SEconomy: 世界帐户: 支付 {0} 给所有玩家."), WorldAccount.Balance.ToLongString()));
 			await Task.Delay(5000);
 			TSPlayer[] players = TShock.Players;
 			TSPlayer[] array = players;
@@ -191,7 +180,7 @@ namespace Wolfje.Plugins.SEconomy
 			}
 			catch (Exception ex)
 			{
-				TShock.Log.ConsoleError("seconomy error: Error getting bank account for {0}: {1}", tsPlayer.Name, ex.Message);
+				TShock.Log.ConsoleError("seconomy错误: 获取{0}的银行账户时出错: {1}", tsPlayer.Name, ex.Message);
 				return null;
 			}
 		}

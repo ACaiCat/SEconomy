@@ -68,7 +68,7 @@ namespace Wolfje.Plugins.Jist
 				Instance = null;
 				Instance = new JistEngine(this);
 				await Instance.LoadEngineAsync();
-				args.Player.SendInfoMessage("Jist reloaded");
+				args.Player.SendInfoMessage("Jist“—÷ÿ‘ÿ!");
 			}
 		}
 

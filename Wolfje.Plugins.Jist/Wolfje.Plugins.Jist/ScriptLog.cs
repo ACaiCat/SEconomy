@@ -82,7 +82,7 @@ namespace Wolfje.Plugins.Jist
 			{
 				ConsoleColor foregroundColor = Console.ForegroundColor;
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.Write("[jist {0} error] ", ScriptName);
+				Console.Write("[jist {0} ´íÎó] ", ScriptName);
 				Console.WriteLine(MessageFormat, args);
 				Console.ForegroundColor = foregroundColor;
 			}

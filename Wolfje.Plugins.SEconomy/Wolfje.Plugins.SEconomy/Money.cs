@@ -99,7 +99,7 @@ namespace Wolfje.Plugins.SEconomy
 			_moneyValue = 0L;
 			if (Gold > 99 || Silver > 99 || Copper > 99)
 			{
-				throw new ArgumentException("Supplied values for Gold, silver and copper cannot be over 99.");
+				throw new ArgumentException("提供的金币,银币和铜币的价值不能超过99.");
 			}
 			_moneyValue += (long)Math.Pow(Platinum, 6.0);
 			_moneyValue += (long)Math.Pow(Gold, 4.0);

@@ -64,12 +64,12 @@ namespace Wolfje.Plugins.SEconomy.Journal
 					BankTransferEventArgs bankTransferEventArgs = await bankAccount.TransferToAsync(bankAccount2, aggregatedFund.Amount, aggregatedFund.Options, stringBuilder.ToString(), stringBuilder.ToString());
 					if (!bankTransferEventArgs.TransferSucceeded && bankTransferEventArgs.Exception != null)
 					{
-						TShock.Log.ConsoleError($"seconomy cache: error source={aggregatedFund.SourceBankAccountK} dest={aggregatedFund.DestinationBankAccountK}: {bankTransferEventArgs.Exception}");
+						TShock.Log.ConsoleError($"seconomy缓存: 错误 source={aggregatedFund.SourceBankAccountK} dest={aggregatedFund.DestinationBankAccountK}: {bankTransferEventArgs.Exception}");
 					}
 				}
 				else
 				{
-					TShock.Log.ConsoleError($"seconomy cache: transaction cache has no source or destination. source key={aggregatedFund.SourceBankAccountK} dest key={aggregatedFund.DestinationBankAccountK}");
+					TShock.Log.ConsoleError($"seconomy缓存: 事务缓存没有源或目标. source key={aggregatedFund.SourceBankAccountK} dest key={aggregatedFund.DestinationBankAccountK}");
 				}
 			}
 		}

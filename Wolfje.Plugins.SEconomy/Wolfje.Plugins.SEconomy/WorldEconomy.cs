@@ -122,7 +122,7 @@ namespace Wolfje.Plugins.SEconomy
 					list = DamageDictionary[NPC];
 					if (!DamageDictionary.Remove(NPC))
 					{
-						TShock.Log.ConsoleError("seconomy: world economy: Remove of NPC after reward failed.  This is an internal error.");
+						TShock.Log.ConsoleError("seconomy: 世界经济: 奖励失败后将NPC移出.这是一个内部错误.");
 					}
 				}
 			}
@@ -235,7 +235,7 @@ namespace Wolfje.Plugins.SEconomy
 						SourceBankAccountK = Parent.WorldAccount.BankAccountK,
 						DestinationBankAccountK = bankAccount2.BankAccountK,
 						Amount = money,
-						Message = "killing " + tSPlayer2.Name,
+						Message = "正在杀死" + tSPlayer2.Name,
 						Options = BankAccountTransferOptions.AnnounceToReceiver
 					};
 					Parent.TransactionCache.AddCachedTransaction(cachedTransaction);

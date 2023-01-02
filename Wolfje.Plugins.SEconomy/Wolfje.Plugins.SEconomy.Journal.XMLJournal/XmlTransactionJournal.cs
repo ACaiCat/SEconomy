@@ -88,19 +88,19 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 				bankAccount = bankAccounts.Where((IBankAccount i) => (i.Flags & BankAccountFlags.SystemAccount) == BankAccountFlags.SystemAccount && (i.Flags & BankAccountFlags.PluginAccount) == 0 && i.WorldID == Main.worldID).FirstOrDefault();
 				if (bankAccount == null)
 				{
-					bankAccount = AddBankAccount("SYSTEM", Main.worldID, BankAccountFlags.Enabled | BankAccountFlags.SystemAccount | BankAccountFlags.LockedToWorld, "World account for world " + Main.worldName);
+					bankAccount = AddBankAccount("SYSTEM", Main.worldID, BankAccountFlags.Enabled | BankAccountFlags.SystemAccount | BankAccountFlags.LockedToWorld, "世界账户: " + Main.worldName);
 				}
 				if (bankAccount != null)
 				{
 					if ((bankAccount.Flags & BankAccountFlags.Enabled) != BankAccountFlags.Enabled)
 					{
-						TShock.Log.ConsoleError(string.Format(SEconomyPlugin.Locale.StringOrDefault(60, "The world account for world {0} is disabled.  Currency will not work for this game."), Main.worldName));
+						TShock.Log.ConsoleError(string.Format(SEconomyPlugin.Locale.StringOrDefault(60, "已禁用世界{0}的世界帐户.货币在游戏中不再起作用."), Main.worldName));
 						return null;
 					}
 				}
 				else
 				{
-					TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(61, "There was an error loading the bank account for this world.  Currency will not work for this game."));
+					TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(61, "加载此世界的银行帐户时出错.货币在游戏中不再起作用."));
 				}
 			}
 			return bankAccount;
@@ -287,9 +287,9 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 					}
 					catch
 					{
-						TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(65, "seconomy backup: Cannot copy {0} to {1}, shadow backups will not work!"), path, path + ".bak");
+						TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(65, "seconomy备份: 无法将{0}复制到{1}，影子备份将不起作用!"), path, path + ".bak");
 					}
-					Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(66, "seconomy journal: writing to disk"));
+					Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(66, "seconomy日志: 正在写入到硬盘..."));
 					try
 					{
 						using FileStream fileStream = new FileStream(path + ".tmp", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
@@ -301,7 +301,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 					}
 					catch
 					{
-						TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(67, "seconomy journal: Saving your journal failed!"));
+						TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(67, "seconomy日志: 保存日志失败!"));
 						if (File.Exists(path + ".tmp"))
 						{
 							try
@@ -310,7 +310,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 							}
 							catch
 							{
-								TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(68, "seconomy journal: Cannot delete temporary file!"));
+								TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(68, "seconomy日志: 无法删除临时文件!"));
 								throw;
 							}
 						}
@@ -323,16 +323,16 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 						}
 						catch
 						{
-							TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(68, "seconomy journal: Cannot delete temporary file!"));
+							TShock.Log.ConsoleError(SEconomyPlugin.Locale.StringOrDefault(68, "seconomy日志: 无法删除临时文件!"));
 							throw;
 						}
 					}
-					Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(69, "seconomy journal: finished backing up."));
+					Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(69, "seconomy日志: 备份已完成."));
 				}
 			}
 			catch
 			{
-				Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(70, "seconomy journal: There was an error saving your journal.  Make sure you have backups."));
+				Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(70, "seconomy日志: 保存您的日志时出错.确保你有备份."));
 			}
 			finally
 			{
@@ -358,7 +358,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 			{
 				Label = "Verify"
 			};
-			ConsoleEx.WriteLineColour(ConsoleColor.Cyan, " Using XML journal - {0}", path);
+			ConsoleEx.WriteLineColour(ConsoleColor.Cyan, " 使用XML日志系统 - {0}", path);
 			try
 			{
 				byte[] compressedData = new byte[0];
@@ -374,17 +374,17 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 						Console.ForegroundColor = ConsoleColor.DarkCyan;
 						if (ex is FileNotFoundException || ex is DirectoryNotFoundException)
 						{
-							TShock.Log.ConsoleInfo(" * It appears you do not have a journal yet, one will be created for you.");
+							TShock.Log.ConsoleInfo(" * 似乎还没有日志，将为你创建一个.");
 							SaveJournal();
 							continue;
 						}
 						if (ex is SecurityException)
 						{
-							TShock.Log.ConsoleError(" * Access denied to the journal file.  Check permissions.");
+							TShock.Log.ConsoleError(" * 拒绝访问日志文件.检查权限.");
 						}
 						else
 						{
-							TShock.Log.ConsoleError(" * Loading your journal failed: " + ex.Message);
+							TShock.Log.ConsoleError(" * 加载日志失败: " + ex.Message);
 						}
 					}
 					MemoryStream input;
@@ -394,7 +394,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 					}
 					catch
 					{
-						TShock.Log.ConsoleError(" * Decompression failed.");
+						TShock.Log.ConsoleError(" * 解压缩失败.");
 						return false;
 					}
 					if (this.JournalLoadingPercentChanged != null)
@@ -476,7 +476,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 						int num5 = bankAccounts.RemoveAll((IBankAccount pred) => duplicateAccounts.Contains(pred.BankAccountK));
 						if (num5 > 0)
 						{
-							TShock.Log.Warn("seconomy journal: removed " + num5 + " accounts with duplicate IDs.");
+							TShock.Log.Warn("seconomy日志: 移除 " + num5 + " 这个具有重复ID的帐户.");
 						}
 						int num6 = node.XPathSelectElements("/Journal/Transactions/Transaction").Count();
 						location = 0;
@@ -542,14 +542,14 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 						int count = bankAccounts.Count;
 						Console.WriteLine();
 						Console.ForegroundColor = ConsoleColor.Cyan;
-						Console.WriteLine("\r\n Journal clean: {0} accounts and {1} transactions.", count, Transactions.Count());
+						Console.WriteLine("\r\n 日志清理: {0}个帐户和{1}笔交易.", count, Transactions.Count());
 						Console.ResetColor();
 					}
 					catch (Exception ex2)
 					{
 						ConsoleEx.WriteAtEnd(2, ConsoleColor.Red, "[{0}]\r\n", SEconomyPlugin.Locale.StringOrDefault(79, "corrupt"));
 						TShock.Log.ConsoleError(ex2.ToString());
-						Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(80, "Your transaction journal appears to be corrupt and transactions have been lost.\n\nYou will start with a clean journal.\nYour old journal file has been move to SEconomy.journal.xml.gz.corrupt"));
+						Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(80, "您的交易日志似乎已损坏,交易已丢失.\n\n你将从一个干净的日记开始.\n您的旧日志文件已移动到SEconomy.journal.xml.gz.corrupt"));
 						File.Move(path, path + "." + DateTime.Now.ToFileTime() + ".corrupt");
 						SaveJournal();
 						continue;
@@ -586,7 +586,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 		{
 			int num = BankAccounts.Count();
 			bool responsibleForTurningBackupsBackOn = false;
-			Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(81, "seconomy xml: beginning Squash"));
+			Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(81, "seconomyXML日志: 正在压缩..."));
 			if (SEconomyInstance.RunningJournal.BackupsEnabled)
 			{
 				SEconomyInstance.RunningJournal.BackupsEnabled = false;
@@ -602,13 +602,13 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 						Amount = bankAccount.Transactions.Sum((ITransaction x) => x.Amount),
 						Flags = (BankAccountTransactionFlags.FundsAvailable | BankAccountTransactionFlags.Squashed),
 						TransactionDateUtc = DateTime.UtcNow,
-						Message = "Transaction squash"
+						Message = "压缩事务"
 					};
 					bankAccount.Transactions.Clear();
 					bankAccount.AddTransaction(transaction);
 				}
 			}
-			Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(82, "re-syncing online accounts."));
+			Console.WriteLine(SEconomyPlugin.Locale.StringOrDefault(82, "正在重新同步在线帐户."));
 			TSPlayer[] players = TShock.Players;
 			TSPlayer[] array = players;
 			foreach (TSPlayer tSPlayer in array)
@@ -618,7 +618,7 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 				{
 					return;
 				}
-				Console.WriteLine("re-syncing {0}", tSPlayer.Name);
+				Console.WriteLine("正在重新同步用户 {0}", tSPlayer.Name);
 				await bankAccount2.SyncBalanceAsync();
 			}
 			await SaveJournalAsync();
@@ -741,11 +741,11 @@ namespace Wolfje.Plugins.SEconomy.Journal.XMLJournal
 					{
 						if ((long)Amount < 0)
 						{
-							tSPlayer.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(83, "Invalid amount."));
+							tSPlayer.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(83, "无效金额."));
 						}
 						else
 						{
-							tSPlayer.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(84, "You need {0} more to make this payment."), ((Money)((long)FromAccount.Balance - (long)Amount)).ToLongString());
+							tSPlayer.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(84, "您还需要{0}个才能支付此付款."), ((Money)((long)FromAccount.Balance - (long)Amount)).ToLongString());
 						}
 					}
 				}

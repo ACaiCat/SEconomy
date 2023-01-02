@@ -37,19 +37,19 @@ namespace Wolfje.Plugins.Jist.Extensions
 					action(new CommandArgs(text2, player, list));
 					return true;
 				}
-				player.SendErrorMessage("Invalid command entered. Type /help for a list of valid commands.");
+				player.SendErrorMessage("输入的命令无效.键入/help获取有效命令列表.");
 				return true;
 			}
 			foreach (Command item in enumerable)
 			{
 				if (!item.AllowServer && !player.RealPlayer)
 				{
-					player.SendErrorMessage("You must use this command in-game.");
+					player.SendErrorMessage("你必须在游戏中使用这个命令.");
 					continue;
 				}
 				if (item.DoLog && !silent)
 				{
-					TShock.Utils.SendLogs(player.Name + " executed: /" + text2 + ".", Color.Red);
+					TShock.Utils.SendLogs(player.Name + " 执行: /" + text2 + ".", Color.Red);
 				}
 				item.RunWithoutPermissions(text2, player, list);
 			}

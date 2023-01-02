@@ -69,20 +69,20 @@ namespace Wolfje.Plugins.SEconomy
 						IBankAccount playerBankAccount = Parent.GetPlayerBankAccount(args.Parameters[1]);
 						if (playerBankAccount != null)
 						{
-							args.Player.SendInfoMessage(string.Format(SEconomyPlugin.Locale.StringOrDefault(39, "seconomy reset: Resetting {0}'s account."), args.Parameters[1]));
+							args.Player.SendInfoMessage(string.Format(SEconomyPlugin.Locale.StringOrDefault(39, "seconomy重置: 正在重置{0}的账户."), args.Parameters[1]));
 							playerBankAccount.Transactions.Clear();
 							await playerBankAccount.SyncBalanceAsync();
-							args.Player.SendInfoMessage(SEconomyPlugin.Locale.StringOrDefault(40, "seconomy reset:  Reset complete."));
+							args.Player.SendInfoMessage(SEconomyPlugin.Locale.StringOrDefault(40, "seconomy重置: 重置完成."));
 						}
 						else
 						{
-							args.Player.SendErrorMessage(string.Format(SEconomyPlugin.Locale.StringOrDefault(41, "seconomy reset: Cannot find player \"{0}\" or no bank account found."), args.Parameters[1]));
+							args.Player.SendErrorMessage(string.Format(SEconomyPlugin.Locale.StringOrDefault(41, "seconomy重置: 没有找到 \"{0}\" 的账户."), args.Parameters[1]));
 						}
 					}
 				}
 				else
 				{
-					args.Player.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(42, "seconomy reset: You do not have permission to perform this command."));
+					args.Player.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(42, "seconomy重置: 你没有权限使用该指令."));
 				}
 			}
 			if (args.Parameters[0].Equals("bal", StringComparison.CurrentCultureIgnoreCase) || args.Parameters[0].Equals("您总共拥有", StringComparison.CurrentCultureIgnoreCase))
@@ -96,14 +96,14 @@ namespace Wolfje.Plugins.SEconomy
 				{
 					if (!selectedAccount.IsAccountEnabled && !args.Player.Group.HasPermission("bank.viewothers"))
 					{
-						args.Player.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(43, "bank balance: your account is disabled"));
+						args.Player.SendErrorMessage(SEconomyPlugin.Locale.StringOrDefault(43, "bank: 你的账户已被禁用"));
 						return;
 					}
 					args.Player.SendInfoMessage(SEconomyPlugin.Locale.StringOrDefault(44, "你目前拥有{0}Exp,请努力升级吧！"), selectedAccount.Balance.ToLongString(ShowNegativeSign: true), selectedAccount.IsAccountEnabled ? "" : SEconomyPlugin.Locale.StringOrDefault(45, "(disabled)"));
 				}
 				else
 				{
-					args.Player.SendInfoMessage(SEconomyPlugin.Locale.StringOrDefault(46, "bank balance: Cannot find player or no bank account."));
+					args.Player.SendInfoMessage(SEconomyPlugin.Locale.StringOrDefault(46, "bank: 没有找到玩家账户."));
 				}
 			}
 			else if (args.Parameters[0].Equals("mgr"))
@@ -116,7 +116,7 @@ namespace Wolfje.Plugins.SEconomy
 				{
 					Thread thread = new Thread((ThreadStart)delegate
 					{
-						TShock.Log.ConsoleInfo(SEconomyPlugin.Locale.StringOrDefault(47, "seconomy mgr: opening bank manager window"));
+						TShock.Log.ConsoleInfo(SEconomyPlugin.Locale.StringOrDefault(47, "seconomy: 正在打开银行管理器窗口"));
 						Parent.RunningJournal.BackupsEnabled = false;
 						Parent.RunningJournal.BackupsEnabled = true;
 						TShock.Log.ConsoleInfo(SEconomyPlugin.Locale.StringOrDefault(49, "seconomy management: window closed"));

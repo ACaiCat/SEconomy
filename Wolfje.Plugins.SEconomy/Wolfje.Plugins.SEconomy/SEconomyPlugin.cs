@@ -60,32 +60,35 @@ namespace Wolfje.Plugins.SEconomy
 			});
 		}
 
-		protected void PrintIntro()
+        protected void PrintIntro()
 		{
-			Console.WriteLine();
-			Console.ForegroundColor = ConsoleColor.Cyan;
-			Console.Write(" SEconomy系统 ");
-			Console.ForegroundColor = ConsoleColor.DarkCyan;
-			Console.ForegroundColor = ConsoleColor.Cyan;
-			Console.Write(" Copyright (C) Wolfje(Cai升级), 2014-2023");
-			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.Write("http://github.com/tylerjwatson/SEconomy");
-			Console.WriteLine("\r\n");
-			ConsoleColor backgroundColor = Console.BackgroundColor;
-			Console.ForegroundColor = ConsoleColor.Black;
-			Console.BackgroundColor = ConsoleColor.Yellow;
-			Console.WriteLine(" SEconomy is free software.  If you paid for it you were scammed.");
-			Console.BackgroundColor = backgroundColor;
-			Console.WriteLine("\r\n");
-			Console.ForegroundColor = ConsoleColor.Cyan;
-			Console.WriteLine(" Please wait...");
-			Console.WriteLine();
-			Console.ResetColor();
-		}
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(" SEconomy系统 ");
+            Console.Write(" SEconomy已经停止维护了,你需要考虑换掉它!");
+            Console.Write(" SEconomy已经停止维护了,你需要考虑换掉它!");
+
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(" Copyright (C) Wolfje(Cai升级), 2014-2023");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("https://github.com/ACaiCat/SEconomy");
+            Console.WriteLine("\r\n");
+            ConsoleColor backgroundColor = Console.BackgroundColor;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(" SEconomy是免费的插件.如果你是付费购买,那么你被骗了!");
+            Console.BackgroundColor = backgroundColor;
+            Console.WriteLine("\r\n");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" 请等待...");
+            Console.WriteLine();
+            Console.ResetColor();
+        }
 
 		public string GetVersionString()
 		{
-			StringBuilder stringBuilder = new StringBuilder("SEconomy Update");
+			StringBuilder stringBuilder = new StringBuilder("SEconomy更新");
 			stringBuilder.AppendFormat(" {0}", Version.Build);
 			return stringBuilder.ToString();
 		}
@@ -110,11 +113,11 @@ namespace Wolfje.Plugins.SEconomy
 		{
 			if (args.Parameters.Count == 0)
 			{
-				args.Player.SendInfoMessage(string.Format(Locale.StringOrDefault(3, "{0} by Wolfje"), GetVersionString()));
+				args.Player.SendInfoMessage(string.Format(Locale.StringOrDefault(3, "{0}"), GetVersionString()));
 				args.Player.SendInfoMessage(" * http://plugins.tw.id.au");
-				args.Player.SendInfoMessage(Locale.StringOrDefault(5, " * /sec[onomy] reload|rl - Reloads SEconomy"));
-				args.Player.SendInfoMessage(Locale.StringOrDefault(6, " * /sec[onomy] stop - Stops and unloads SEconomy"));
-				args.Player.SendInfoMessage(Locale.StringOrDefault(7, " * /sec[onomy] start - Starts SEconomy"));
+				args.Player.SendInfoMessage(Locale.StringOrDefault(5, " * /sec[onomy] reload|rl - 重载SEconomy"));
+				args.Player.SendInfoMessage(Locale.StringOrDefault(6, " * /sec[onomy] stop - 停止并卸载SEconomy"));
+				args.Player.SendInfoMessage(Locale.StringOrDefault(7, " * /sec[onomy] start - 启动SEconomy"));
 			}
 			else if ((args.Parameters[0].Equals("reload", StringComparison.CurrentCultureIgnoreCase) || args.Parameters[0].Equals("rl", StringComparison.CurrentCultureIgnoreCase)) && args.Player.Group.HasPermission("seconomy.command.reload"))
 			{
@@ -149,16 +152,16 @@ namespace Wolfje.Plugins.SEconomy
 				catch
 				{
 					RaiseUnloadedEvent();
-					args.Player.SendErrorMessage(Locale.StringOrDefault(12, "SEconomy failed to initialize, and will be unavailable for this session."));
+					args.Player.SendErrorMessage(Locale.StringOrDefault(12, "SEconomy初始化失败,已被禁用."));
 					return;
 				}
-				args.Player.SendSuccessMessage(Locale.StringOrDefault(8, "SEconomy is reloaded."));
+				args.Player.SendSuccessMessage(Locale.StringOrDefault(8, "SEconomy已重载!"));
 			}
 			else if (args.Parameters[0].Equals("stop", StringComparison.CurrentCultureIgnoreCase) && args.Player.Group.HasPermission("seconomy.command.stop"))
 			{
 				if (Instance == null)
 				{
-					args.Player.SendErrorMessage(Locale.StringOrDefault(9, "seconomy stop: SEconomy is already stopped. Use /sec start to start"));
+					args.Player.SendErrorMessage(Locale.StringOrDefault(9, "seconomy禁用: SEconomy已被禁用. 使用 /sec start 重新启动SE系统"));
 					return;
 				}
 				await Task.Run(delegate
@@ -166,14 +169,14 @@ namespace Wolfje.Plugins.SEconomy
 					Instance.Dispose();
 					Instance = null;
 				});
-				args.Player.SendSuccessMessage(Locale.StringOrDefault(10, "SEconomy is stopped."));
+				args.Player.SendSuccessMessage(Locale.StringOrDefault(10, "SEconomy已禁用."));
 				RaiseUnloadedEvent();
 			}
 			else if (args.Parameters[0].Equals("start", StringComparison.CurrentCultureIgnoreCase) && args.Player.Group.HasPermission("seconomy.command.start"))
 			{
 				if (Instance != null)
 				{
-					args.Player.SendErrorMessage(Locale.StringOrDefault(11, "seconomy stop: SEconomy is already started. Use /sec stop to stop."));
+					args.Player.SendErrorMessage(Locale.StringOrDefault(11, "seconomy启动: SEconomy已启用. 使用 /sec stop 禁用SE系统."));
 					return;
 				}
 				try
@@ -200,10 +203,10 @@ namespace Wolfje.Plugins.SEconomy
 				}
 				catch
 				{
-					args.Player.SendErrorMessage(Locale.StringOrDefault(12, "SEconomy failed to initialize, and will be unavailable for this session."));
+					args.Player.SendErrorMessage(Locale.StringOrDefault(12, "SEconomy初始化失败,已被禁用."));
 					return;
 				}
-				args.Player.SendSuccessMessage(Locale.StringOrDefault(13, "SEconomy has started."));
+				args.Player.SendSuccessMessage(Locale.StringOrDefault(13, "SEconomy已启动."));
 				RaiseLoadedEvent();
 			}
 			else if ((args.Parameters[0].Equals("multi", StringComparison.CurrentCultureIgnoreCase) || args.Parameters[0].Equals("multiplier", StringComparison.CurrentCultureIgnoreCase)) && args.Player.Group.HasPermission("seconomy.command.multi"))
@@ -212,16 +215,16 @@ namespace Wolfje.Plugins.SEconomy
 				int result = 0;
 				if (args.Parameters.Count == 1)
 				{
-					args.Player.SendInfoMessage("sec multi: Reward multiplier: {0}", Instance.WorldEc.CustomMultiplier);
+					args.Player.SendInfoMessage("sec: 奖励倍数: {0}", Instance.WorldEc.CustomMultiplier);
 				}
 				else if (!int.TryParse(args.Parameters[1], out result) || result < 0 || result > 100)
 				{
-					args.Player.SendErrorMessage("sec multi: Syntax: /sec multi[plier] 1-100");
+					args.Player.SendErrorMessage("sec: 正确用法: /sec multi[plier] 1-100");
 				}
 				else
 				{
 					Instance.WorldEc.CustomMultiplier = result;
-					args.Player.SendInfoMessage("sec multi: Multiplier of {0} set successfully.", result);
+					args.Player.SendInfoMessage("sec: 奖励倍数已设为{0}.", result);
 				}
 			}
 		}
